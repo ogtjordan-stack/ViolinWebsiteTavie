@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Octavia Violin | Corporate & Private Events Melbourne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      color: #F0EBE3;
+      background: #0D0D0D;
+    }
+
+    /* ═══════════════════════════════════════════════
+       COLOUR TOKENS
+    ═══════════════════════════════════════════════ */
+    :root {
+      --black:       #0D0D0D;
+      --charcoal:    #1A1A1A;
+      --dark-card:   #141414;
+      --burgundy:    #6B1A2A;
+      --burgundy-lt: #8B2A3A;
+      --gold:        #B89355;
+      --gold-lt:     #C9A96E;
+      --cream:       #F0EBE3;
+      --cream-dim:   rgba(240,235,227,0.65);
+      --text-muted:  rgba(240,235,227,0.45);
+      --border:      rgba(240,235,227,0.1);
+      --border-gold: rgba(184,147,85,0.4);
+    }
+
+    /* ═══════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(13,13,13,0.96);
+      backdrop-filter: blur(12px);
+      padding: 1rem 3rem;
+      box-shadow: 0 1px 0 rgba(184,147,85,0.15);
+    }
+
+    .nav__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav__links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav__links a:hover { color: var(--gold-lt); }
+
+    .nav__cta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 0.65rem 1.5rem;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .nav__cta:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .nav__back {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+    }
+    .nav__back:hover { color: var(--gold-lt); }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/corporate-hero.jpg') center/cover no-repeat;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    .hero__bg.loaded { transform: scale(1); }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(13,13,13,0.78) 0%,
+        rgba(80,15,28,0.55) 50%,
+        rgba(13,13,13,0.7) 100%
+      );
+    }
+
+    /* Decorative grain texture */
+    .hero__grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 0 2rem;
+      max-width: 900px;
+    }
+
+    .hero__eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: #FFFFFF;
+      line-height: 0.92;
+      margin-bottom: 2rem;
+      text-shadow: 0 2px 60px rgba(0,0,0,0.4);
+    }
+
+    .hero__divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero__divider-line {
+      width: 60px;
+      height: 1px;
+      background: rgba(184,147,85,0.5);
+    }
+
+    .hero__diamond {
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .hero__tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(240,235,227,0.82);
+      letter-spacing: 0.1em;
+      margin-bottom: 3rem;
+      display: block;
+    }
+
+    .btn-gold {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-gold:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(240,235,227,0.3);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(184,147,85,0.4);
+      animation: scrollDrop 2s ease infinite;
+    }
+    @keyframes scrollDrop {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       MARQUEE / CREDENTIAL STRIP
+    ═══════════════════════════════════════════════ */
+    .marquee-strip {
+      background: var(--burgundy);
+      padding: 0.9rem 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(184,147,85,0.2);
+      border-bottom: 1px solid rgba(184,147,85,0.2);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(240,235,227,0.75);
+    }
+
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════════════════════════
+       SHARED SECTION STYLES
+    ═══════════════════════════════════════════════ */
+    section { padding: 7rem 2rem; }
+
+    .section-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-rule {
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       ABOUT SECTION
+    ═══════════════════════════════════════════════ */
+    .about {
+      background: var(--charcoal);
+      padding: 8rem 2rem;
+    }
+
+    .about__inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about__body p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 2;
+      color: var(--cream-dim);
+      margin-bottom: 1.3rem;
+    }
+
+    .about__credentials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+
+    .credential {
+      padding: 1.5rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .credential__num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .credential__label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .about__img-wrap {
+      position: relative;
+    }
+
+    .about__img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: grayscale(15%);
+    }
+
+    .about__img-border {
+      position: absolute;
+      top: 1.5rem;
+      right: -1.5rem;
+      bottom: -1.5rem;
+      left: 1.5rem;
+      border: 1px solid var(--border-gold);
+      z-index: -1;
+    }
+
+    /* ═══════════════════════════════════════════════
+       GALLERY
+    ═══════════════════════════════════════════════ */
+    .gallery {
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 400px;
+    }
+
+    .gallery__item {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%) contrast(1.05);
+      transition: transform 0.7s ease, filter 0.7s ease;
+    }
+
+    .gallery__item:hover img {
+      transform: scale(1.05);
+      filter: grayscale(0%) contrast(1);
+    }
+
+    .gallery__item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(13,13,13,0.3);
+      transition: opacity 0.4s;
+    }
+    .gallery__item:hover .gallery__item-overlay { opacity: 0; }
+
+    /* ═══════════════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════════════ */
+    .testimonials {
+      background: var(--black);
+      text-align: center;
+    }
+
+    .testimonials__header {
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .testimonials__grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+    }
+
+    .tcard {
+      background: var(--dark-card);
+      padding: 2.5rem 2rem;
+      text-align: left;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .tcard:hover { background: #1C1C1C; }
+
+    .tcard__accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--burgundy);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .tcard:hover .tcard__accent { transform: scaleX(1); }
+
+    .tcard__stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 1.2rem;
+    }
+
+    .star { color: var(--gold); font-size: 0.8rem; }
+
+    .tcard__quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .tcard__rule {
+      width: 25px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .tcard__name {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+    }
+
+    .tcard__event {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      margin-top: 0.3rem;
+      opacity: 0.7;
+    }
+
+    /* ═══════════════════════════════════════════════
+       PACKAGES
+    ═══════════════════════════════════════════════ */
+    .packages {
+      background: var(--charcoal);
+      text-align: center;
+    }
+
+    .packages__intro {
+      max-width: 680px;
+      margin: 0 auto 4.5rem;
+    }
+
+    .packages__intro p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--cream-dim);
+      line-height: 1.75;
+    }
+
+    .packages__grid {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+    }
+
+    .pkg {
+      background: var(--dark-card);
+      padding: 3rem 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .pkg:hover { background: #1E1E1E; }
+
+    .pkg__top-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--burgundy), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+    .pkg:hover .pkg__top-accent,
+    .pkg--featured .pkg__top-accent { transform: scaleX(1); }
+
+    .pkg__badge {
+      position: absolute;
+      top: -0.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      white-space: nowrap;
+    }
+
+    .pkg__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+
+    .pkg__desc {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1.8rem;
+      flex: 1;
+    }
+
+    .pkg__includes {
+      list-style: none;
+      margin-bottom: 2rem;
+      text-align: left;
+      width: 100%;
+    }
+
+    .pkg__includes li {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .pkg__includes li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pkg__rule {
+      width: 40px;
+      height: 1px;
+      background: var(--border-gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .pkg__price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .pkg__price-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1.8rem;
+    }
+
+    .btn-enquire {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: transparent;
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      border: 1px solid rgba(240,235,227,0.25);
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .btn-enquire:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+
+    .pkg--featured .btn-enquire {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+    .pkg--featured .btn-enquire:hover {
+      background: var(--burgundy);
+      border-color: var(--burgundy);
+      color: var(--cream);
+    }
+
+    /* ═══════════════════════════════════════════════
+       CONTACT SECTION
+    ═══════════════════════════════════════════════ */
+    .contact {
+      background: var(--black);
+    }
+
+    .contact__inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .contact__header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Form */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--charcoal);
+      border: 1px solid rgba(240,235,227,0.12);
+      padding: 0.9rem 1.1rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--cream);
+      outline: none;
+      transition: border-color 0.25s, background 0.25s;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(240,235,227,0.25);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: #1E1E1E;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23B89355'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-group select option { background: #1A1A1A; color: var(--cream); }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1.1rem;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+
+    .form-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: rgba(184,147,85,0.6);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════ */
+    .footer {
+      background: #080808;
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer__tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer__links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer__links a:hover { color: var(--gold); }
+
+    .footer__contact {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+    .footer__contact a { color: var(--gold-lt); text-decoration: none; }
+
+    .footer__ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      margin-bottom: 2.5rem;
+    }
+    .footer__ig:hover { color: var(--gold); }
+
+    .footer__rule {
+      width: 60px;
+      height: 1px;
+      background: var(--border-gold);
+      margin: 0 auto 1.5rem;
+    }
+
+    .footer__copy {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: rgba(240,235,227,0.15);
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .about__inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about__inner { direction: ltr; }
+      .about__img-border { display: none; }
+      .testimonials__grid { grid-template-columns: 1fr; max-width: 500px; background: none; gap: 1rem; }
+      .packages__grid { grid-template-columns: 1fr; max-width: 400px; background: none; gap: 1rem; }
+      .gallery { grid-template-columns: 1fr; height: auto; }
+      .gallery__item { height: 280px; }
+      .form-row { grid-template-columns: 1fr; }
+      .about__credentials { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .nav { padding: 1rem 1.5rem; }
+      .nav__links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      .marquee-strip { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ NAV ══════════════ -->
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="nav__back">
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><path d="M0 5l4-4v3h10v2H4v3L0 5z"/></svg>
+      Home
+    </a>
+    <a href="corporate.html" class="nav__logo">Octavia Violin</a>
+    <ul class="nav__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav__cta">Make Enquiry</a>
+  </nav>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="hero">
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__content">
+      <span class="hero__eyebrow">Corporate &amp; Private Events · Melbourne</span>
+      <h1 class="hero__title">Octavia Violin</h1>
+      <div class="hero__divider">
+        <div class="hero__divider-line"></div>
+        <div class="hero__diamond"></div>
+        <div class="hero__divider-line"></div>
+      </div>
+      <span class="hero__tagline">"Elevating your event with world-class performance."</span>
+      <a href="#contact" class="btn-gold">Make an Enquiry</a>
+    </div>
+    <div class="hero__scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══════════════ CREDENTIAL MARQUEE ══════════════ -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <!-- Repeat twice for seamless loop -->
+      <span class="marquee-item">Blenheim Palace <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Salon Privé <span class="marquee-dot"></span></span>
+      <span class="marquee-item">ExCeL London <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Home House <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Westfield London <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Islington Town Hall <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Award Ceremonies <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Charity Galas <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Brand Events <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Blenheim Palace <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Salon Privé <span class="marquee-dot"></span></span>
+      <span class="marquee-item">ExCeL London <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Home House <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Westfield London <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Islington Town Hall <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Award Ceremonies <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Charity Galas <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Brand Events <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- ══════════════ ABOUT ══════════════ -->
+  <section class="about" id="about">
+    <div class="about__inner">
+
+      <div class="about__body">
+        <span class="section-eyebrow">About Octavia</span>
+        <h2 class="section-title">A performer who elevates every room she enters</h2>
+        <div class="section-rule"></div>
+        <p>
+          Octavia is a British professional violinist with over two decades of performance experience across some of the world's most prestigious venues and events. Classically trained, she holds a Bachelor of Music from the University of Bristol, where she was appointed Leader of the University Orchestra.
+        </p>
+        <p>
+          Known for her commanding stage presence and polished professionalism, Octavia performs entirely from memory — adapting in real time to the energy of the room, the formality of the event, and the expectations of your guests. Whether she is setting a refined atmosphere for a black-tie gala or delivering a high-energy performance for an awards ceremony, she reads the room and responds accordingly.
+        </p>
+        <p>
+          Her corporate experience spans major brand events at Westfield London, large-scale functions at ExCeL London for audiences of thousands, exclusive members' clubs including Home House, and a career highlight performing at Blenheim Palace for Salon Privé — the UK's most prestigious luxury automotive event.
+        </p>
+        <div class="about__credentials">
+          <div class="credential">
+            <span class="credential__num">Blenheim</span>
+            <span class="credential__label">Palace · Salon Privé</span>
+          </div>
+          <div class="credential">
+            <span class="credential__num">1,000+</span>
+            <span class="credential__label">Guests · ExCeL London</span>
+          </div>
+          <div class="credential">
+            <span class="credential__num">London</span>
+            <span class="credential__label">Members' Clubs</span>
+          </div>
+          <div class="credential">
+            <span class="credential__num">Global</span>
+            <span class="credential__label">Styles & Genres</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__img-wrap">
+        <img class="about__img" src="images/corporate-about.jpg" alt="Octavia performing at a corporate event">
+        <div class="about__img-border"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ GALLERY ══════════════ -->
+  <div class="gallery">
+    <div class="gallery__item">
+      <img src="images/corporate-gallery-1.jpg" alt="Octavia at a corporate event">
+      <div class="gallery__item-overlay"></div>
+    </div>
+    <div class="gallery__item">
+      <img src="images/corporate-gallery-2.jpg" alt="Octavia performing at a professional event">
+      <div class="gallery__item-overlay"></div>
+    </div>
+    <div class="gallery__item">
+      <img src="images/corporate-gallery-3.jpg" alt="Octavia performing in an elegant setting">
+      <div class="gallery__item-overlay"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ TESTIMONIALS ══════════════ -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials__header">
+      <span class="section-eyebrow">Client Praise</span>
+      <h2 class="section-title">What clients say</h2>
+      <div class="section-rule" style="margin: 0 auto;"></div>
+    </div>
+    <div class="testimonials__grid">
+
+      <div class="tcard">
+        <div class="tcard__accent"></div>
+        <div class="tcard__stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="tcard__quote">"Octavia was the perfect addition to our client event — our flagship event of the year. We had over 250 people in the room and Octavia managed the space brilliantly with her beautiful music. She was very professional and I hope we get to work together soon."</p>
+        <div class="tcard__rule"></div>
+        <div class="tcard__name">Zoe Legg</div>
+        <div class="tcard__event">Flagship Client Event, 250 Guests · Verified Review</div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard__accent"></div>
+        <div class="tcard__stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="tcard__quote">"The feedback has been excellent from our beautiful breakfast. Octavia's playing was so enchanting that it set people up for a great day!"</p>
+        <div class="tcard__rule"></div>
+        <div class="tcard__name">Lou Shelley</div>
+        <div class="tcard__event">Corporate Breakfast Event · Verified Review</div>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard__accent"></div>
+        <div class="tcard__stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="tcard__quote">"Thank you Octavia. You were incredible!! Your playing was stunning and I've received very positive feedback. Everyone loved it and you. You are so very talented!"</p>
+        <div class="tcard__rule"></div>
+        <div class="tcard__name">Donna M</div>
+        <div class="tcard__event">Private Event</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ PACKAGES ══════════════ -->
+  <section class="packages" id="packages">
+    <div class="packages__intro">
+      <span class="section-eyebrow">Packages</span>
+      <h2 class="section-title">Tailored to your event</h2>
+      <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
+      <p>I offer a range of packages, working with you personally to curate a performance that perfectly fits the atmosphere you are seeking to create at your event. Every detail is discussed and agreed in advance.</p>
+    </div>
+
+    <div class="packages__grid">
+
+      <!-- Package 1 -->
+      <div class="pkg">
+        <div class="pkg__top-accent"></div>
+        <h3 class="pkg__name">Signature Set</h3>
+        <p class="pkg__desc">A polished 30-minute performance — the ideal solution for welcome moments, VIP arrivals, or a defined set within your event.</p>
+        <ul class="pkg__includes">
+          <li>30 minute live performance</li>
+          <li>Tailored repertoire</li>
+          <li>Ceremony-ready setlist</li>
+          <li>Acoustic performance</li>
+        </ul>
+        <div class="pkg__rule"></div>
+        <span class="pkg__price">$600</span>
+        <span class="pkg__price-label">Starting From</span>
+        <a href="#contact" class="btn-enquire">Get a Quote</a>
+      </div>
+
+      <!-- Package 2 — Featured -->
+      <div class="pkg pkg--featured">
+        <div class="pkg__top-accent"></div>
+        <div class="pkg__badge">Most Popular</div>
+        <h3 class="pkg__name">Half Day</h3>
+        <p class="pkg__desc">Comprehensive coverage for multi-session events — conferences, gala dinners, and functions that demand sustained excellence.</p>
+        <ul class="pkg__includes">
+          <li>Up to 4 hours performance</li>
+          <li>Multiple set formats</li>
+          <li>Fully bespoke repertoire</li>
+          <li>DJ collaboration available</li>
+        </ul>
+        <div class="pkg__rule"></div>
+        <span class="pkg__price">$2,000</span>
+        <span class="pkg__price-label">Starting From</span>
+        <a href="#contact" class="btn-enquire">Get a Quote</a>
+      </div>
+
+      <!-- Package 3 -->
+      <div class="pkg">
+        <div class="pkg__top-accent"></div>
+        <h3 class="pkg__name">Full Day</h3>
+        <p class="pkg__desc">The complete experience for large-scale events — from executive arrivals to evening celebrations, Octavia is with you all day.</p>
+        <ul class="pkg__includes">
+          <li>Full day coverage</li>
+          <li>Multiple performance sets</li>
+          <li>Breaks &amp; schedule flexibility</li>
+          <li>Fully tailored programme</li>
+        </ul>
+        <div class="pkg__rule"></div>
+        <span class="pkg__price">$3,000</span>
+        <span class="pkg__price-label">Starting From</span>
+        <a href="#contact" class="btn-enquire">Get a Quote</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTACT ══════════════ -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__header">
+        <span class="section-eyebrow">Make an Enquiry</span>
+        <h2 class="section-title">Let's discuss your event</h2>
+        <div class="section-rule" style="margin: 0 auto;"></div>
+      </div>
+
+      <!-- ⚠️ ACTION: Replace with your Formsubmit/Formspree endpoint once verified -->
+      <form action="https://formsubmit.co/bookings@octaviaviolin.com" method="POST">
+        <input type="hidden" name="_cc" value="blueskiesjordan@gmail.com">
+        <input type="hidden" name="_subject" value="Corporate Enquiry — Octavia Violin">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://octaviaviolin.com/thankyou.html">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name <span style="color:var(--gold)">*</span></label>
+            <input type="text" id="first-name" name="First Name" required placeholder="John">
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name <span style="color:var(--gold)">*</span></label>
+            <input type="text" id="last-name" name="Last Name" required placeholder="Smith">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email <span style="color:var(--gold)">*</span></label>
+            <input type="email" id="email" name="Email" required placeholder="john@company.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone <span style="color:var(--gold)">*</span></label>
+            <input type="tel" id="phone" name="Phone" required placeholder="+61 4XX XXX XXX">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="event-date">Event Date <span style="color:var(--gold)">*</span></label>
+            <input type="date" id="event-date" name="Event Date" required>
+          </div>
+          <div class="form-group">
+            <label for="event-type">Event Type <span style="color:var(--gold)">*</span></label>
+            <select id="event-type" name="Event Type" required>
+              <option value="" disabled selected>Select an option</option>
+              <option>Wedding</option>
+              <option>Proposal</option>
+              <option>Private Event</option>
+              <option>Corporate Function</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="start-time">Start Time</label>
+            <input type="time" id="start-time" name="Start Time">
+          </div>
+          <div class="form-group">
+            <label for="finish-time">Finish Time</label>
+            <input type="time" id="finish-time" name="Finish Time">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location">Location <span style="color:var(--gold)">*</span></label>
+            <input type="text" id="location" name="Location" required placeholder="Venue name &amp; suburb">
+          </div>
+          <div class="form-group">
+            <label for="guests">No. of Guests</label>
+            <input type="number" id="guests" name="Number of Guests" placeholder="Approx. guest count" min="1">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="referral">How did you hear about me? <span style="color:var(--gold)">*</span></label>
+          <select id="referral" name="How did you hear about me" required>
+            <option value="" disabled selected>Select an option</option>
+            <option>Google</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>YouTube</option>
+            <option>TikTok</option>
+            <option>At a wedding/event</option>
+            <option>Through a Friend</option>
+            <option>Directory</option>
+            <option>Blog or Podcast</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message <span style="color:var(--gold)">*</span></label>
+          <textarea id="message" name="Message" rows="5" required placeholder="Tell me about your event — the type of function, the atmosphere you have in mind, and anything else that would be helpful to know…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Send Enquiry</button>
+        <p class="form-note">I aim to respond to all enquiries within 24 hours.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="footer">
+    <a href="corporate.html" class="footer__logo">Octavia Violin</a>
+    <p class="footer__tagline">Corporate &amp; Private Events · Melbourne</p>
+    <ul class="footer__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#contact">Enquire</a></li>
+      <li><a href="wedding.html">Wedding Events</a></li>
+    </ul>
+    <p class="footer__contact">
+      <a href="tel:+61450336369">+61 450 336 369</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:bookings@octaviaviolin.com">bookings@octaviaviolin.com</a>
+    </p>
+    <a href="https://www.instagram.com/octaviaviolin/" target="_blank" rel="noopener" class="footer__ig">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+      @octaviaviolin
+    </a>
+    <div class="footer__rule"></div>
+    <p class="footer__copy">&copy; 2026 Octavia Violin. All rights reserved. Melbourne, Australia.</p>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+    // Hero bg slow zoom on load
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+  </script>
+</body>
+</html>
